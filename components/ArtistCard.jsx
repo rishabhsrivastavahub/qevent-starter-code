@@ -1,28 +1,33 @@
 "use client";
 
+import { useRouter } from 'next/navigation';
+
 const ArtistCard = ({ artistData }) => {
+  const router = useRouter();
+
+  const handleViewEvents = () => {
+    router.push(`/events?artist=${encodeURIComponent(artistData.name)}`);
+  };
 
   return (
-    <div className="hover-inverse group w-[20%] min-w-[300px]  h-fit flex text-center justify-center transform transition-transform duration-400 hover:scale-110 hover:bg-gradient-to-r hover:from-orange-200 hover:to-white text-dark m-4 border-slate-400 border rounded-md px-8 py-2.5">
-     
-        <div>
-          <img
-            className="w-24 h-24 mb-3 group-hover:filter-none rounded-full shadow-lg m-auto"
-            src={artistData.image}
-            alt={`${artistData.name} image`}
-          />
-          <p>{artistData.location}</p>
-          <h2 className="text-2xl font-bold">{artistData.name}</h2>
-          <p>{artistData.description}</p>
-          <div className="flex justify-between items-center mt-10">
-            <h3 className="text-2xl">{artistData.artist}</h3>
-          </div>
-          <button
-            className=" bg-gradient-to-r from-orange-400 to-teal-600 text-white px-4 py-2 rounded-md font-medium hover:opacity-70"
-          >
-            View Events
-          </button>
-        </div>
+    <div className="w-full bg-white border border-gray-200 rounded-xl shadow-sm transition-shadow duration-300 hover:shadow-lg overflow-hidden">
+      <div className="p-6 text-center">
+        <img
+          className="w-28 h-28 mx-auto rounded-full object-cover shadow-lg"
+          src={artistData.image}
+          alt={`${artistData.name} image`}
+        />
+        <p className="text-sm text-slate-500 mt-4">{artistData.location}</p>
+        <h2 className="text-xl font-semibold text-slate-900 mt-2">{artistData.name}</h2>
+        <p className="text-xs uppercase tracking-[0.2em] text-emerald-600 font-bold mt-1">{artistData.artist}</p>
+        <p className="text-sm text-slate-600 mt-4 leading-6">{artistData.description}</p>
+        <button
+          onClick={handleViewEvents}
+          className="mt-6 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-orange-500 to-emerald-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:opacity-90"
+        >
+          View Events
+        </button>
+      </div>
     </div>
   );
 };
