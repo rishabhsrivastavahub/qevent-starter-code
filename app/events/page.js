@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect,Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import EventCard from '@/components/EventCard';
 
@@ -91,6 +91,16 @@ export default function EventsPage() {
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+export default function EventsPage() {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-8">
+      <Suspense fallback={<p className="text-center mt-8">Loading page...</p>}>
+        <EventsContent />
+      </Suspense>
     </div>
   );
 }
