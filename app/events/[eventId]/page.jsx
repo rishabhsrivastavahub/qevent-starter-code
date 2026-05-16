@@ -13,7 +13,20 @@ async function getEvent(eventId) {
 }
 
 export default async function EventDetailsPage({ params }) {
-  const event = await getEvent(params.eventId);
+  // const event = await getEvent(params.eventId);
+  // 1. Await the params promise to resolve eventId safely
+  const { eventId } = await params;
+
+  const event = await getEvent(eventId);
+
+  // 2. Fallback safely if the API didn't return a valid event object
+  if (!event || Object.keys(event).length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 text-slate-600">
+        <p className="text-xl font-medium">Event not found or failed to load.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-8">
